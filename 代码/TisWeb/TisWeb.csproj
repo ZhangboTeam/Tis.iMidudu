@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AspNetPager">
+      <HintPath>..\packages\AspNetPager.7.4.3\lib\AspNetPager.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -127,6 +130,7 @@
     <Content Include="Admin\js\json2.js" />
     <Content Include="Admin\js\queryString.js" />
     <Content Include="Admin\login.aspx" />
+    <Content Include="Admin\URLMap.aspx" />
     <Content Include="Admin\WebService.asmx" />
     <Content Include="Global.asax" />
     <Content Include="View.aspx" />

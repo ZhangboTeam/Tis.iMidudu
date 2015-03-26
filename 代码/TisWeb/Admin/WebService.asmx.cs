@@ -48,5 +48,12 @@ namespace TisWeb.Admin
             }
             return false;
         }
+        [WebMethod]
+        public void AddNewUrlMap(string newUrlCode,string newToUrl)
+        {
+            SqlHelper.ExecteNonQueryProcedure("URLMap_InsertProcedure",
+                 new System.Data.SqlClient.SqlParameter("@UrlCode", newUrlCode),
+                 new System.Data.SqlClient.SqlParameter("@ToUrl", newToUrl));
+        }
     }
 }

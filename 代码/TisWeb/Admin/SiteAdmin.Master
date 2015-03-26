@@ -96,29 +96,11 @@
             <hr />
             <h3>数据管理</h3>
             <ul class="toggle">
-                <li class="icn_profile"><a href="/Admin/ChangePassword.aspx">管理员修改密码</a></li>
-                <li class="icn_view_users"><a href="/Admin/UserManage.aspx">验证过的用户</a></li>
-                <li class="icn_tags"><a href="/Admin/ActivityManage.aspx">活动管理</a></li>
-                <li class="icn_tags"><a href="/Admin/ActivityDividedSearch.aspx">活动分组查看</a></li>
-                <li class="icn_tags"><a href="/Admin/Blacklist.aspx">黑名单管理</a></li>
+                <li class="icn_view_users"><a href="/Admin/URLMap.aspx">路径映射</a></li>
+                <li class="icn_tags"><a href="/Admin/ActivityManage.aspx">浏览记录</a></li> 
+                <li class="icn_profile"><a href="/Admin/ChangePassword.aspx">修改密码</a></li>
             </ul>
-            <h3>红包历史查看</h3>
-            <ul class="toggle">
-                <li class="icn_settings"><a href="/Admin/TimeSearch.aspx">按时段查询</a></li>
-                <li class="icn_settings"><a href="/Admin/UserSearch.aspx">按用户名查询</a></li>
-                <li></li>
-                <li></li>
-                <li class="icn_categories"><a href="/Admin/MoneyTop10.aspx">领取金额top10</a></li>
-                <li></li>
-                <li class="icn_categories"><a href="/Admin/NumberTop10.aspx">领取次数top10</a></li>
-                <li class="icn_categories"><a href="/Admin/Morethan15.aspx">领取超过15的</a></li>
-                <li class="icn_settings"><a href="/Admin/AllActivityUserSearch.aspx">查看所有参加活动用户</a></li>
-                <li class="icn_categories"><a href="/Admin/default.aspx">红包统计</a></li>
-                <li class="icn_settings"><a href="/Admin/IllegalInformation.aspx">非法领取人的信息</a>
-                </li>
-
-            </ul>
-
+          
         </aside>
         <!-- end of sidebar -->
 
