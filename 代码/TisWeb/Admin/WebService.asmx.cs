@@ -49,11 +49,19 @@ namespace TisWeb.Admin
             return false;
         }
         [WebMethod]
-        public void AddNewUrlMap(string newUrlCode,string newToUrl)
+        public string AddNewUrlMap(string newUrlCode,string newToUrl)
         {
             SqlHelper.ExecteNonQueryProcedure("URLMap_InsertProcedure",
                  new System.Data.SqlClient.SqlParameter("@UrlCode", newUrlCode),
                  new System.Data.SqlClient.SqlParameter("@ToUrl", newToUrl));
+            var count = (int)SqlHelper.ExecuteScalarText("select count(1) from URLMap");
+            return string.Format("{0:000}", count++);
+        }
+        [WebMethod]
+        public void DeleteUrlMap(string UrlCode )
+        {
+            SqlHelper.ExecteNonQueryProcedure("URLMap_DeleteProcedure",
+                 new System.Data.SqlClient.SqlParameter("@UrlCode", UrlCode) );
         }
     }
 }

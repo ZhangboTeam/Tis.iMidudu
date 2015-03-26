@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/SiteAdmin.Master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="PageBody" runat="server">
-    <article class="module width_full">
-
         <script runat="server">
 
             private int totalCount;
@@ -43,6 +41,27 @@
             }
         </script>
         <script>
+            function deleteCode(code) {
+                var data = {
+                    UrlCode:code 
+                }; 
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "/Admin/Webservice.asmx/DeleteUrlMap",
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    success: function (result) {
+                       
+                        alert("ok");
+                        window.location.reload();
+                       
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                });
+            }
             function AddNew() { 
                 var data = {
                     newUrlCode: $("#newUrlCode").val(),
@@ -62,8 +81,9 @@
                     dataType: 'json',
                     success: function (result) {
                        
-                        alert("ok");
-                        window.location.reload();
+                        // alert("ok");
+                        $("#newUrlCode").val(result.d);
+                         window.location.reload();
                        
                     },
                     error: function (err) {
@@ -73,60 +93,75 @@
             }
         </script>
 
-        <div class="tab_container">
-            <div id="tab1" class="tab_content">
-                <asp:Repeater ID="Repeater1" runat="server">
-                    <HeaderTemplate>
-                        <table class="tablesorter" cellspacing="0">
-                            <thead>
+    <article class="module width_full">
+         
+            <header> 
+
+            </header>
+            <div class="tab_container">
+                <div id="tab1" class="tab_content">
+                    <asp:Repeater ID="Repeater1" runat="server">
+                        <HeaderTemplate>
+                            <table class="tablesorter" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th width="50">UrlCode</th>
+                                        <th>ToUrl</th>
+                                        <th  width="50"></th>
+                                    </tr>
+                                </thead>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tbody>
                                 <tr>
-                                    <th>UrlCode</th>
-                                    <th>ToUrl</th>
-                                    <th></th>
+                                    <td><%#Eval("UrlCode") %></td> 
+                                <td>
+                                    <input tag="txt"
+                                         code="<%#Eval("UrlCode") %>"
+                                         id="newToUrl" type="text" style="width:100%;" value="<%#Eval("ToUrl") %>" /></td>
+                                    <td>
+                                        <input type="submit" value="Delete" class="alt_btn" onclick="deleteCode('<%#Eval("UrlCode")%>')" />
+                                    </td>
+
                                 </tr>
-                            </thead>
-                    </HeaderTemplate>
-                    <ItemTemplate>
-                        <tbody>
+                        </ItemTemplate>
+                        <FooterTemplate>
+
                             <tr>
-                                <td><%#Eval("UrlCode") %></td>
-                                <td><%#Eval("ToUrl") %></td>
                                 <td>
-                                    <input type="button" value="Delete" class="alt_btn" />
+                                    <% var count = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from URLMap");
+            var nextCode =  string.Format("{0:000}", count++); %>
+                                    <input id="newUrlCode" type="text" value="<%=nextCode %>" />
+
+                                </td>
+                                <td>
+                                    <input id="newToUrl" type="text" style="width:100%;" /></td>
+                                <td>
+                                    <input type="submit" value="AddNew" class="alt_btn" onclick="AddNew();" />
                                 </td>
 
                             </tr>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                        
-                            <tr>
-                                <td> 
-                                    <input id="newUrlCode"  type="text"/>
-
-                                </td>
-                                <td> 
-                                    <input id="newToUrl"  type="text"/></td>
-                                <td>
-                                    <input type="button" value="AddNew" class="alt_btn"  onclick="AddNew();"/>
-                                </td>
-
-                            </tr>
-                        </tbody>
+                            </tbody>
                     </table>
-                    </FooterTemplate>
-                </asp:Repeater>
-                <webdiyer:AspNetPager ID="AspNetPager1" runat="server" Width="100%" UrlPaging="true" ShowPageIndexBox="Always" PageIndexBoxType="DropDownList"
-                    FirstPageText="【首页】"
-                    LastPageText="【尾页】" NextPageText="【后页】"
-                    PrevPageText="【前页】" NumericButtonTextFormatString="【{0}】" TextAfterPageIndexBox="页" TextBeforePageIndexBox="转到第" HorizontalAlign="right" PageSize="20" OnPageChanged="AspNetPager1_PageChanged" EnableTheming="true" CustomInfoHTML="Page  <font color='red'><b>%CurrentPageIndex%</b></font> of  %PageCount%  Order %StartRecordIndex%-%EndRecordIndex%">
-                </webdiyer:AspNetPager>
+                            
+                        </FooterTemplate>
+                    </asp:Repeater>
+                    <webdiyer:AspNetPager ID="AspNetPager1" runat="server" Width="100%" UrlPaging="true" ShowPageIndexBox="Always" PageIndexBoxType="DropDownList" ShowCustomInfoSection="Left"
+                        FirstPageText="【首页】"
+                        LastPageText="【尾页】" NextPageText="【后页】"
+                        PrevPageText="【前页】" NumericButtonTextFormatString="【{0}】" TextAfterPageIndexBox="页" TextBeforePageIndexBox="转到第" HorizontalAlign="right" PageSize="10" OnPageChanged="AspNetPager1_PageChanged" EnableTheming="true" CustomInfoHTML="当前第  <font color='red'><b>%CurrentPageIndex%</b></font> 页,共  %PageCount%  页 ,总共:%RecordCount% 条数据">
+                    </webdiyer:AspNetPager>
+                    
+            <div class="submit_link">
+                <input type="submit" value="导出表格" class="alt_btn"/>
             </div>
-            <!-- end of #tab1 -->
+                </div>
+                <!-- end of #tab1 -->
 
 
 
-        </div>
-        <!-- end of .tab_container -->
-
-    </article>
+            </div>
+            <!-- end of .tab_container -->
+        
+        </article>
 </asp:Content>
