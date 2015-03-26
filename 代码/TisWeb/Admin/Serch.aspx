@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/SiteAdmin.Master" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="PageBody" runat="server">
         <script runat="server">
 
@@ -20,9 +19,10 @@
 
                 totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory");
 
-                var dr = TisWeb.Models.SqlHelper.ExecuteReaderFromStoredProcedure("bsp_ViewHistory",
+                var dr = TisWeb.Models.SqlHelper.ExecuteReaderFromStoredProcedure("StoredProcedure3",
                    new System.Data.SqlClient.SqlParameter("@startIndex", AspNetPager1.StartRecordIndex),
-                   new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex)
+                   new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex),
+                   new System.Data.SqlClient.SqlParameter("@key", this.Request["key"])
                    );
 
                 return dr;
@@ -40,8 +40,17 @@
                 this.DataBind();
             }
         </script>
-      
+       <script>
 
+           function dosearch() {
+               var key = $("#key").val();
+               window.location = "Search.aspx?key=" +key;
+           }
+    </script>
+    <div>
+    <input type="text"  id="key" placeholder="城市或者code查询"/>
+    <input type="submit" onclick="dosearch();" value="搜索"/>
+    </div>
     <article class="module width_full">
          
             <header> 

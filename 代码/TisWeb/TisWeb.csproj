@@ -134,6 +134,7 @@
     <Content Include="Admin\URLMap.aspx" />
     <Content Include="Admin\WebService.asmx" />
     <Content Include="Global.asax" />
+    <Content Include="Admin\Serch.aspx" />
     <Content Include="View.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -147,6 +148,7 @@
     </Compile>
     <Compile Include="Admin\WebService.asmx.cs">
       <DependentUpon>WebService.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
