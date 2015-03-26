@@ -97,7 +97,7 @@
             <h3>数据管理</h3>
             <ul class="toggle">
                 <li class="icn_view_users"><a href="/Admin/URLMap.aspx">路径映射</a></li>
-                <li class="icn_tags"><a href="/Admin/ActivityManage.aspx">浏览记录</a></li> 
+                <li class="icn_tags"><a href="/Admin/ViewHistory.aspx">浏览记录</a></li> 
                 <li class="icn_profile"><a href="/Admin/ChangePassword.aspx">修改密码</a></li>
             </ul>
           
