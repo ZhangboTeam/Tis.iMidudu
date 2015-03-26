@@ -91,6 +91,36 @@
                     }
                 });
             }
+
+            function UpdateAll() {
+                var data = new Array();
+                $("input[tag='txt']").each(function(){
+                    data.push({
+                        code:$(this).attr("code"),
+                        tourl:$(this).val()
+                    });
+                });
+                var arg={
+                    datasssss:data
+                }
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: "/Admin/Webservice.asmx/UpdateAllUrlMap",
+                    data: JSON.stringify(arg),
+                    dataType: 'json',
+                    success: function (result) {
+                       
+                        // alert("ok");
+                        
+                        window.location.reload();
+                       
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                });
+            }
         </script>
 
     <article class="module width_full">
@@ -116,7 +146,7 @@
                                 <tr>
                                     <td><%#Eval("UrlCode") %></td> 
                                 <td>
-                                    <input tag="txt"
+                                    <input tag="txt" onclick="this.select();"
                                          code="<%#Eval("UrlCode") %>"
                                          id="newToUrl" type="text" style="width:100%;" value="<%#Eval("ToUrl") %>" /></td>
                                     <td>
@@ -153,7 +183,7 @@
                     </webdiyer:AspNetPager>
                     
             <div class="submit_link">
-                <input type="submit" value="导出表格" class="alt_btn"/>
+                <input type="submit" value="批量更新" class="alt_btn" onclick="UpdateAll();"/>
             </div>
                 </div>
                 <!-- end of #tab1 -->

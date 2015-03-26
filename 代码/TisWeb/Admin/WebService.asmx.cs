@@ -63,5 +63,20 @@ namespace TisWeb.Admin
             SqlHelper.ExecteNonQueryProcedure("URLMap_DeleteProcedure",
                  new System.Data.SqlClient.SqlParameter("@UrlCode", UrlCode) );
         }
+        [WebMethod]
+        public void UpdateAllUrlMap(List<UpdateModelUrlMap>  datasssss)
+        {
+            foreach (var d in datasssss)
+            {
+                SqlHelper.ExecteNonQueryProcedure("URLMap_UpdateProcedure",
+                     new System.Data.SqlClient.SqlParameter("@UrlCode", d.code),
+                     new System.Data.SqlClient.SqlParameter("@ToUrl", d.tourl));
+            }
+        }
+    }
+    public class UpdateModelUrlMap
+    {
+        public string code { get; set; }
+        public string tourl { get; set; }
     }
 }
