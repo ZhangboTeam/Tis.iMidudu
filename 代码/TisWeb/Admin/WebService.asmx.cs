@@ -28,5 +28,25 @@ namespace TisWeb.Admin
             return ok;
         }
 
+        [WebMethod(EnableSession = true)]
+        public bool Logout()
+        {
+            System.Web.HttpContext.Current.Session["UserName"] = null;
+            return true;
+        }
+
+        [WebMethod(EnableSession = true)]
+        public bool ChangePassword(string oldpwd, string newpwd, string newpwd2)
+        {
+            var username = HttpContext.Current.Session["UserName"].ToString();
+            if (SqlHelper.Exists("select count(1) from SystemUser where LoginName =@UserName and Password = @Password", new System.Data.SqlClient.SqlParameter("@UserName", username), new System.Data.SqlClient.SqlParameter("@Password", oldpwd)))
+            {
+                SqlHelper.ExecteNonQueryText("update SystemUser set Password=@Password where LoginName=@UserName",
+                 new System.Data.SqlClient.SqlParameter("@UserName", username),
+                 new System.Data.SqlClient.SqlParameter("@Password", newpwd));
+                return true;
+            }
+            return false;
+        }
     }
 }

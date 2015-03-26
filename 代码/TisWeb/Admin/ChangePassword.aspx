@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/SiteAdmin.Master" AutoEventWireup="true" CodeBehind="ChangePassword.aspx.cs" Inherits="iMidudu.Admin.ChangePassword" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/SiteAdmin.Master"    %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PageBody" runat="server">
     <script src="js/json2.js"></script>
     <script>
@@ -17,7 +17,7 @@
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/Webservice.asmx/ChangePassword",
+                url: "/Admin/Webservice.asmx/ChangePassword",
                 data: JSON.stringify(data),
                 dataType: 'json',
                 success: function (result) {

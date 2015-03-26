@@ -124,6 +124,7 @@
     <Content Include="Admin\js\jquery.equalHeight.js" />
     <Content Include="Admin\js\jquery.min.js" />
     <Content Include="Admin\js\jquery.tablesorter.min.js" />
+    <Content Include="Admin\js\json2.js" />
     <Content Include="Admin\js\queryString.js" />
     <Content Include="Admin\login.aspx" />
     <Content Include="Admin\WebService.asmx" />
@@ -132,20 +133,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin\ChangePassword.aspx.cs">
-      <DependentUpon>ChangePassword.aspx</DependentUpon>
-      <SubType>aspxcodebehind</SubType>
-    </Compile>
-    <Compile Include="Admin\ChangePassword.aspx.designer.cs">
-      <DependentUpon>ChangePassword.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>aspxcodebehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Admin\SiteAdmin.Master.cs">
       <DependentUpon>SiteAdmin.Master</DependentUpon>
       <SubType>aspxcodebehind</SubType>

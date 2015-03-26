@@ -54,11 +54,11 @@
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/Webservice.asmx/Logout",
+                url: "/Admin/Webservice.asmx/Logout",
                 data: JSON.stringify(data),
                 dataType: 'json',
                 success: function (result) {
-                    alert("ok");
+                   // alert("ok");
                     window.location.href = "/Admin/Login.aspx"
                 }
             });
@@ -126,8 +126,7 @@
             <asp:ContentPlaceHolder ID="PageBody" runat="server"></asp:ContentPlaceHolder>
         </section>
             <footer>
-                <hr /> 
-                <p align="center">&copy 2015 www.suusee.com</p>
+                <hr />  
             </footer>
     </form>
 </body>
