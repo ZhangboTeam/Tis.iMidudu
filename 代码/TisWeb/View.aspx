@@ -6,6 +6,17 @@
     {
         Response.End();
     }
+    var code = this.Request["code"];
+    if (string.IsNullOrEmpty(code))
+    {
+        Response.End();
+    }
+    string to;
+    TisWeb.Models.Biz.SaveViewHistory(code,out to);
+    if (to!=null)
+    {
+        this.Response.Redirect(to);
+    }
      %>
 <%=user.data.ip %>
 <%=user.data.linetype %>
