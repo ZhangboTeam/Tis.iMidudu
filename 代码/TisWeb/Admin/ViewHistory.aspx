@@ -54,12 +54,11 @@
                             <table class="tablesorter" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th width="50">被扫code</th>
+                                        <th width="50">code</th>
                                         <th>浏览者IP</th>
                                         <th>浏览者国家</th>
                                         <th>浏览者城市</th>
                                         <th>浏览者系统</th>
-                                        
                                         <th>浏览时间</th>
                                     </tr>
                                 </thead>

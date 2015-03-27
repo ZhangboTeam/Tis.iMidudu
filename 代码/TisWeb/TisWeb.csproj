@@ -134,7 +134,7 @@
     <Content Include="Admin\URLMap.aspx" />
     <Content Include="Admin\WebService.asmx" />
     <Content Include="Global.asax" />
-    <Content Include="Admin\Serch.aspx" />
+    <Content Include="Admin\Search.aspx" />
     <Content Include="View.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
