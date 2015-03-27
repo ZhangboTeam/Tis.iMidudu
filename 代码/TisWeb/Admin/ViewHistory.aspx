@@ -59,7 +59,8 @@
                                         <th>浏览者国家</th>
                                         <th>浏览者城市</th>
                                         <th>浏览者系统</th>
-                                        <th>浏览器类型</th>
+                                        
+                                        <th>浏览时间</th>
                                     </tr>
                                 </thead>
                         </HeaderTemplate>
@@ -71,8 +72,8 @@
                                     <td><%#Eval("country") %></td>
                                     <td><%#Eval("city") %></td>
                                     <td><%#Eval("os") %></td>
-                                    <td><%#Eval("agent") %></td>
                                     
+                                    <td><%#Eval("ViewDate") %></td>
                                 </tr>
                         </ItemTemplate>
                         <FooterTemplate>

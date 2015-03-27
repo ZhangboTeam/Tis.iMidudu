@@ -16,15 +16,14 @@
 
             private System.Data.SqlClient.SqlDataReader LoadData()
             {
-
+                
                 totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory");
-
                 var dr = TisWeb.Models.SqlHelper.ExecuteReaderFromStoredProcedure("StoredProcedure3",
                    new System.Data.SqlClient.SqlParameter("@startIndex", AspNetPager1.StartRecordIndex),
                    new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex),
                    new System.Data.SqlClient.SqlParameter("@key", this.Request["key"])
                    );
-
+                 //this.Request["key"]
                 return dr;
             }
             public override void DataBind()
@@ -43,13 +42,15 @@
        <script>
 
            function dosearch() {
-               var key = $("#key").val();
-               window.location = "Search.aspx?key=" +key;
+               var k = $("#key").val();
+               window.location.href = "Serch.aspx?key=" +k;
            }
     </script>
+   
     <div>
     <input type="text"  id="key" placeholder="城市或者code查询"/>
-    <input type="submit" onclick="dosearch();" value="搜索"/>
+    <input type="submit" onclick="dosearch();"  value="搜索"class="alt_btn"/>
+      <%--  onclick="dosearch();"--%>
     </div>
     <article class="module width_full">
          
@@ -69,6 +70,7 @@
                                         <th>浏览者城市</th>
                                         <th>浏览者系统</th>
                                         <th>浏览器类型</th>
+                                        <th>浏览时间</th>
                                     </tr>
                                 </thead>
                         </HeaderTemplate>
@@ -81,7 +83,7 @@
                                     <td><%#Eval("city") %></td>
                                     <td><%#Eval("os") %></td>
                                     <td><%#Eval("agent") %></td>
-                                    
+                                    <td><%#Eval("ViewDate") %></td>
                                 </tr>
                         </ItemTemplate>
                         <FooterTemplate>

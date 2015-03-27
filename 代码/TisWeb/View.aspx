@@ -15,7 +15,9 @@
     TisWeb.Models.Biz.SaveViewHistory(code,out to);
     if (to!=null)
     {
-        this.Response.Redirect(to);
+
+        var url = "http://" + to;
+        this.Response.Redirect(url);
     }
      %>
 <%=user.data.ip %>
