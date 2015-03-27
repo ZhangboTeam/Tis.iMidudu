@@ -64,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\TimeSearch.aspx" />
     <Content Include="packages.config" />
     <Content Include="Admin\SiteAdmin.Master" />
     <None Include="Properties\PublishProfiles\tis server.pubxml" />

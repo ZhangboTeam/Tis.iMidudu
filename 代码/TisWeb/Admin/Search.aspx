@@ -3,6 +3,8 @@
         <script runat="server">
 
             private int totalCount;
+            //private int Countcitymax;
+            
             protected override void OnLoad(EventArgs e)
             {
                 base.OnLoad(e);
@@ -16,13 +18,17 @@
 
             private System.Data.SqlClient.SqlDataReader LoadData()
             {
+
                 
                 totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory");
+                //Countcitymax = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(city) from ViewHistory ");
+                
                 var dr = TisWeb.Models.SqlHelper.ExecuteReaderFromStoredProcedure("StoredProcedure3",
                    new System.Data.SqlClient.SqlParameter("@startIndex", AspNetPager1.StartRecordIndex),
                    new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex),
                    new System.Data.SqlClient.SqlParameter("@key", this.Request["key"])
                    );
+                
                  //this.Request["key"]
                 return dr;
             }
@@ -98,7 +104,14 @@
                         LastPageText="【尾页】" NextPageText="【后页】"
                         PrevPageText="【前页】" NumericButtonTextFormatString="【{0}】" TextAfterPageIndexBox="页" TextBeforePageIndexBox="转到第" HorizontalAlign="right" PageSize="10" OnPageChanged="AspNetPager1_PageChanged" EnableTheming="true" CustomInfoHTML="当前第  <font color='red'><b>%CurrentPageIndex%</b></font> 页,共  %PageCount%  页 ,总共:%RecordCount% 条数据">
                     </webdiyer:AspNetPager>
-                    
+                     <%--<div class="post_message">
+                <label>汇总：&nbsp&nbsp&nbsp&nbsp 有</label>
+                <label><%#totalCount %></label>
+                <label>人扫码&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 其中</label>
+                <label><%%></label>
+                <label>人最多&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </label>
+                <label><% %>被扫最多</label>
+            </div>--%>
             <div class="submit_link">
                 <input type="submit" value="导出Excel" class="alt_btn"  />
             </div>
