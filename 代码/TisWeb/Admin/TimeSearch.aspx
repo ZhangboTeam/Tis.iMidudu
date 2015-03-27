@@ -3,10 +3,7 @@
 <script runat="server"> 
 
     private int totalCount;
-    //private int totalCount2;
-    //private int totalCount50;
-    //private int totalOpenId;
-    //private double totalMoney;
+
 
     protected override void OnLoad(EventArgs e)
     {
@@ -25,15 +22,27 @@
 
     private System.Data.SqlClient.SqlDataReader LoadData()
     {
-        //var keyb = new System.Data.SqlClient.SqlParameter("@beginDate", DateTime.Parse(this.Request["key1"]));
-        //var keye = new System.Data.SqlClient.SqlParameter("@endDate", DateTime.Parse(this.Request["key2"]).AddDays(1));
         totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory");
-        var dr = TisWeb.Models.SqlHelper.ExecuteReaderFromStoredProcedure("StoredProcedure7",
+        var keyb = new System.Data.SqlClient.SqlParameter("@beginDate", DateTime.Parse(this.Request["key1"]));
+        var keye = new System.Data.SqlClient.SqlParameter("@endDate", DateTime.Parse(this.Request["key2"]).AddDays(1));
+        //cmd./ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+        var cmd = new System.Data.SqlClient.SqlCommand();
+        //Response.Write(keye);
+        //Response.End();
+        var cn = new System.Data.SqlClient.SqlConnection(System.Web.Configuration.WebConfigurationManager.AppSettings["con"]);
+        cmd.Connection = cn;
+        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+        cmd.CommandText = "StoredProcedure7";
+        cmd.Parameters.AddRange(new System.Data.SqlClient.SqlParameter[] {
            new System.Data.SqlClient.SqlParameter("@startIndex", AspNetPager1.StartRecordIndex),
            new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex),
-           new System.Data.SqlClient.SqlParameter("@keyb", this.Request["key1"]),
-           new System.Data.SqlClient.SqlParameter("@keye", this.Request["key2"])
-           );
+           keyb,keye
+        });
+        cn.Open();
+        var dr = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+        var key4 = this.Request["key2"];
+        DateTime key3 = Convert.ToDateTime(key4);
+        key3 = key3.AddDays(1);
         //Console.WriteLine(DateTime.Parse(this.Request["key2"]));
         //var cmd = new System.Data.SqlClient.SqlCommand();
         //var cn = new System.Data.SqlClient.SqlConnection(System.Web.Configuration.WebConfigurationManager.AppSettings["con"]);
@@ -45,6 +54,11 @@
         //   new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex),
         //   keyb,keye
         //});
+        //cn.Open();
+        //var dr = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
+        //var key4 = this.Request["key2"];
+        //DateTime key3 = Convert.ToDateTime(key4);
+        //key3 = key3.AddDays(1);
         //cn.Open();
         //var dr = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
         //var key4=this.Request["key2"];
@@ -62,15 +76,8 @@
         //this.totalCount2 = (int)TisWeb.Models.SqlHelper.ExecuteScalarText(sql3);
         //this.totalCount50 = (int)TisWeb.Models.SqlHelper.ExecuteScalarText(sql4);
         //this.totalOpenId = (int)TisWeb.Models.SqlHelper.ExecuteScalarText(sql5);
-         //try
-         //{
-         //    this.totalMoney = (double)TisWeb.Models.SqlHelper.ExecuteScalarText(sql6);
-         //}
-         //catch
-         //{
-         //    this.totalMoney = 0;
-         //}
         return dr;
+        
     }
     public override void DataBind()
     {
