@@ -64,6 +64,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\CodeSearch.aspx" />
     <Content Include="Admin\TimeSearch.aspx" />
     <Content Include="packages.config" />
     <Content Include="Admin\SiteAdmin.Master" />
@@ -140,6 +141,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\CodeSearch.aspx.cs">
+      <DependentUpon>CodeSearch.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\CodeSearch.aspx.designer.cs">
+      <DependentUpon>CodeSearch.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\SiteAdmin.Master.cs">
       <DependentUpon>SiteAdmin.Master</DependentUpon>
       <SubType>aspxcodebehind</SubType>

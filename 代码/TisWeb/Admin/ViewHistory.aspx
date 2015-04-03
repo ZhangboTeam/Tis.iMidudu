@@ -4,6 +4,7 @@
         <script runat="server">
 
             private int totalCount;
+            //private int Countcitymax;
             //private int totalCount2;
             protected override void OnLoad(EventArgs e)
             {
@@ -20,7 +21,7 @@
             {
 
                 totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory");
-
+                //Countcitymax = TisWeb.Models.SqlHelper.ExecuteScalarText("select province,count(province) as ll from ViewHistory group by province ");
                 var dr = TisWeb.Models.SqlHelper.ExecuteReaderFromStoredProcedure("bsp_ViewHistory",
                    new System.Data.SqlClient.SqlParameter("@startIndex", AspNetPager1.StartRecordIndex),
                    new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex)
@@ -60,6 +61,7 @@
                                         <th>浏览者IP</th>
                                         <th>浏览者国家</th>
                                         <th>浏览者城市</th>
+                                        <th>浏览者市区</th>
                                         <th>浏览者系统</th>
                                         <th>浏览时间</th>
                                     </tr>
@@ -71,9 +73,9 @@
                                     <td><%#Eval("UrlCode") %></td>   
                                     <td><%#Eval("IP") %></td> 
                                     <td><%#Eval("country") %></td>
-                                    <td><%#Eval("city") %></td>
+                                    <td><%#Eval("province") %></td>
+                                    <td><%#Eval("city") %><%#Eval("district") %></td>
                                     <td><%#Eval("os") %></td>
-                                    
                                     <td><%#Eval("ViewDate") %></td>
                                 </tr>
                         </ItemTemplate>
@@ -94,7 +96,7 @@
                 <label>汇总：&nbsp&nbsp&nbsp&nbsp 有</label>
                 <label><%#totalCount %></label>
                 <label>人扫码&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 其中</label>
-                <label><% %></label>
+                <label><%%></label>
                 <label>人最多&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </label>
                 <label><% %>被扫最多</label>
                 

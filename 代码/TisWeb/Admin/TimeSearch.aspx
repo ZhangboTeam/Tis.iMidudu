@@ -22,7 +22,12 @@
 
     private System.Data.SqlClient.SqlDataReader LoadData()
     {
-        totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory");
+
+
+        totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory  ");
+        //totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory where ViewDate >= keyb and ViewDate<=keye ");
+                   //new System.Data.SqlClient.SqlParameter("@beginDate", this.Request["key1"]),
+                   //new System.Data.SqlClient.SqlParameter("@endDate", this.Request["key2"]));
         var keyb = new System.Data.SqlClient.SqlParameter("@beginDate", DateTime.Parse(this.Request["key1"]));
         var keye = new System.Data.SqlClient.SqlParameter("@endDate", DateTime.Parse(this.Request["key2"]).AddDays(1));
         //cmd./ExecuteReader(System.Data.CommandBehavior.CloseConnection);
@@ -176,7 +181,7 @@
 
         </div>
         <!-- end of .tab_container -->
-        <footer>
+        <%--<footer>
                    <div class="post_message">
                 <label>汇总：&nbsp&nbsp&nbsp&nbsp 有</label>
                 <label><% %></label>
@@ -188,7 +193,7 @@
             <div class="submit_link">
                 <input type="submit" value="导出表格" class="alt_btn"/>
             </div>
-        </footer>
+        </footer>--%>
     </article>
 
 

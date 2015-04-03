@@ -1,9 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/SiteAdmin.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="PageBody" runat="server">
         <script runat="server">
-
+            
             private int totalCount;
-            private int Countcitymax;
+            private string Countcitymax;
+            public string code;
+            private string Countcity;
             
             protected override void OnLoad(EventArgs e)
             {
@@ -19,10 +21,20 @@
             private System.Data.SqlClient.SqlDataReader LoadData()
             {
 
-                
-                totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory");
-                //Countcitymax = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select max(count(city)) from ViewHistory  ");
-                
+
+                code = Request["key"];
+                totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory where UrlCode=@key",
+                             new System.Data.SqlClient.SqlParameter("@key", this.Request["key"]));
+                //var uurl = TisWeb.Models.SqlHelper.ExecuteScalarText("select province from ViewHistory where UrlCode=@key",
+                //             new System.Data.SqlClient.SqlParameter("@key", this.Request["key"]).ToString();
+                //Countcity = TisWeb.Models.SqlHelper.ExecuteScalarText("select distinct([province]) from ViewHistory where UrlCode=@key",
+                //               new System.Data.SqlClient.SqlParameter("@key", this.Request["key"])).ToString();
+                //Response.Write(Countcity);
+                //Countcity = TisWeb.Models.SqlHelper.ExecuteDataSetText("select province,count(*) from ViewHistory where UrlCode=@key group by province ",
+                //              new System.Data.SqlClient.SqlParameter("@key", this.Request["key"])).ToString();
+                //Countcity = TisWeb.Models.SqlHelper.ExecuteScalarText("select province,count(province) from ViewHistory where UrlCode=@key group by province ",
+                //               new System.Data.SqlClient.SqlParameter("@key", this.Request["key"])).ToString();
+                //Countcitymax = TisWeb.Models.SqlHelper.ExecuteScalarText("select province,count(*) as provincesum from ViewHistory group by province ");
                 var dr = TisWeb.Models.SqlHelper.ExecuteReaderFromStoredProcedure("StoredProcedure3",
                    new System.Data.SqlClient.SqlParameter("@startIndex", AspNetPager1.StartRecordIndex),
                    new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex),
@@ -52,9 +64,11 @@
                window.location.href = "Search.aspx?key=" +k;
            }
     </script>
-   
+
+
     <div>
-    <label>使用城市查或者code</label><input type="text"  id="key" placeholder="城市或者code查询"/>
+    <label>使用城市查或者code</label><input name="key" type="text"  id="key"  placeholder="城市或者code查询"/>
+        <%--<asp:TextBox ID="key" runat="server" ></asp:TextBox>--%>
     <input type="submit" onclick="dosearch();"  value="搜索"class="alt_btn"/>
       <%--  onclick="dosearch();"--%>
     </div>
@@ -74,6 +88,7 @@
                                         <th>浏览者IP</th>
                                         <th>浏览者国家</th>
                                         <th>浏览者城市</th>
+                                        <th>浏览者市区</th>
                                         <th>浏览者系统</th>
                                         <th>浏览时间</th>
                                     </tr>
@@ -81,23 +96,24 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tbody>
-                                <tr>
+                                 <tr>
                                     <td><%#Eval("UrlCode") %></td>   
                                     <td><%#Eval("IP") %></td> 
                                     <td><%#Eval("country") %></td>
-                                    <td><%#Eval("city") %></td>
-                                    <td><%#Eval("os") %></td>                                    
+                                    <td><%#Eval("province") %></td>
+                                    <td><%#Eval("city") %><%#Eval("district") %></td>
+                                    <td><%#Eval("os") %></td>
                                     <td><%#Eval("ViewDate") %></td>
                                 </tr>
                         </ItemTemplate>
                         <FooterTemplate>
 
-                            
                             </tbody>
                     </table>
                             
                         </FooterTemplate>
                     </asp:Repeater>
+                      
                     <webdiyer:AspNetPager ID="AspNetPager1" runat="server" Width="100%" UrlPaging="true" ShowPageIndexBox="Always" PageIndexBoxType="DropDownList" ShowCustomInfoSection="Left"
                         FirstPageText="【首页】"
                         LastPageText="【尾页】" NextPageText="【后页】"
@@ -105,11 +121,42 @@
                     </webdiyer:AspNetPager>
                      <div class="post_message">
                 <label>汇总：&nbsp&nbsp&nbsp&nbsp 有</label>
-                <label><%#totalCount %></label>
-                <label>人扫码&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp 其中</label>
-                <label><%%></label>
-                <label>人最多&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </label>
-                <label><% %>被扫最多</label>
+                <label><%#totalCount%></label>
+                <label>人扫<%#code%>码&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <%--分别来自于</label>
+                <label><%#Countcity%></label>--%>
+
+                              <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SqlDataSource4" >
+                        <HeaderTemplate>
+                            <table class="tablesorter" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>浏览者城市</th>
+                                        <th width="50">数量</th>
+                                    </tr>
+                                </thead>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tbody>
+                                 <tr>
+                                    <td><%#Eval("province") %></td>   
+                                    <td><%#Eval("count province") %></td> 
+                                </tr>
+                        </ItemTemplate>
+                        <FooterTemplate>
+
+                            </tbody>
+                    </table>
+                            
+                        </FooterTemplate>
+                    </asp:Repeater>
+                    <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:TisConnectionString %>" SelectCommand="select province,count(*) as 'count province'
+ from ViewHistory where UrlCode=@UrlCode group by province ">
+            <SelectParameters>
+                <%--<asp:SessionParameter DefaultValue="001" Name="UrlCode" SessionField="key" Type="String" />--%>
+                <asp:FormParameter DefaultValue="001" FormField="key" Name="UrlCode" Type="String" />
+                <%--<asp:ControlParameter ControlID="key" Name="UrlCode" PropertyName="Text" Type="String" />--%>
+            </SelectParameters>
+        </asp:SqlDataSource>
             </div>
             <div class="submit_link">
                 <input type="submit" value="导出Excel" class="alt_btn"  />
@@ -123,4 +170,5 @@
             <!-- end of .tab_container -->
         
         </article>
+    <%--</form>--%>
 </asp:Content>
