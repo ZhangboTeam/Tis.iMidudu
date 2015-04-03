@@ -153,7 +153,8 @@
  from ViewHistory where UrlCode=@UrlCode group by province ">
             <SelectParameters>
                 <%--<asp:SessionParameter DefaultValue="001" Name="UrlCode" SessionField="key" Type="String" />--%>
-                <asp:FormParameter DefaultValue="001" FormField="key" Name="UrlCode" Type="String" />
+                <%--<asp:FormParameter DefaultValue="001" FormField="key" Name="UrlCode" Type="String" />--%>
+                <asp:QueryStringParameter Name="UrlCode" QueryStringField="key" Type="String" />
                 <%--<asp:ControlParameter ControlID="key" Name="UrlCode" PropertyName="Text" Type="String" />--%>
             </SelectParameters>
         </asp:SqlDataSource>
