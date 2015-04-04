@@ -27,7 +27,13 @@ namespace TisWeb.Admin
             }
             return ok;
         }
-
+        [WebMethod]
+        public string ExcelContentSaveToTemp(string body)
+        {
+            var fn = string.Format("~/temp/{0}.txt", Guid.NewGuid());
+            System.IO.File.WriteAllText(System.Web.HttpContext.Current.Server.MapPath(fn), body);
+            return fn;
+        }
         [WebMethod(EnableSession = true)]
         public bool Logout()
         {

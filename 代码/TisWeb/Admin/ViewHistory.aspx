@@ -43,7 +43,26 @@
                 this.DataBind();
             }
         </script>
-      
+      <script>
+          function DownLoad() {
+              var content = $("#content").html();
+              var data = { body: content };
+              $.ajax({
+                  type: "POST",
+                  contentType: "application/json",
+                  url: "Webservice.asmx/ExcelContentSaveToTemp",
+                  data: JSON.stringify(data),
+                  dataType: 'json',
+                  success: function (fn) {
+
+                      var url = "/Admin/OutExcel.ashx?filename=扫码用户.xls&ContentFile=" + fn.d;
+                      window.open(url, "_blank");
+                  }
+              });
+
+
+          }
+    </script>
 
     <article class="module width_full">
          
@@ -52,6 +71,7 @@
             </header>
             <div class="tab_container">
                 <div id="tab1" class="tab_content">
+                    <div id="content">
                     <asp:Repeater ID="Repeater1" runat="server">
                         <HeaderTemplate>
                             <table class="tablesorter" cellspacing="0">
@@ -87,11 +107,17 @@
                             
                         </FooterTemplate>
                     </asp:Repeater>
+                        </div>
                     <webdiyer:AspNetPager ID="AspNetPager1" runat="server" Width="100%" UrlPaging="true" ShowPageIndexBox="Always" PageIndexBoxType="DropDownList" ShowCustomInfoSection="Left"
                         FirstPageText="【首页】"
                         LastPageText="【尾页】" NextPageText="【后页】"
                         PrevPageText="【前页】" NumericButtonTextFormatString="【{0}】" TextAfterPageIndexBox="页" TextBeforePageIndexBox="转到第" HorizontalAlign="right" PageSize="10" OnPageChanged="AspNetPager1_PageChanged" EnableTheming="true" CustomInfoHTML="当前第  <font color='red'><b>%CurrentPageIndex%</b></font> 页,共  %PageCount%  页 ,总共:%RecordCount% 条数据">
                     </webdiyer:AspNetPager>
+              <footer>
+            <div class="submit_link">
+                <input type="submit" value="导出Excel" class="alt_btn" onclick="DownLoad();"  />
+            </div>
+                        </footer>
                     <%--<div class="post_message">
                 <label>汇总：&nbsp&nbsp&nbsp&nbsp 有</label>
                 <label><%#totalCount %></label>
@@ -102,9 +128,7 @@
                 
 
             </div>--%>
-            <div class="submit_link">
-                <input type="submit" value="导出Excel" class="alt_btn"  />
-            </div>
+            
                 </div>
                 <!-- end of #tab1 -->
 

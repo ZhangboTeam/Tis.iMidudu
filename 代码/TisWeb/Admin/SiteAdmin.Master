@@ -99,7 +99,7 @@
                 <li class="icn_view_users"><a href="/Admin/URLMap.aspx">路径映射</a></li>
                 <li class="icn_tags"><a href="/Admin/ViewHistory.aspx">浏览记录</a></li> 
                 <li class="icn_tags"><a href="/Admin/Search.aspx?key=0">搜索记录</a></li>
-                <li class="icn_tags"><a href="/Admin/TimeSearch.aspx?key1=0">时间搜索</a></li> 
+                <li class="icn_tags"><a href="/Admin/TimeSearch.aspx">时间搜索</a></li> 
                  <%--<li class="icn_profile"><a href="/Admin/CodeSearch.aspx">扫码情况</a></li> --%>
                 <li class="icn_profile"><a href="/Admin/ChangePassword.aspx">修改密码</a></li>
                 <li class="icn_profile"></li>
