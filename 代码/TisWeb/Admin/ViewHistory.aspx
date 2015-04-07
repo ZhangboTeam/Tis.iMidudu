@@ -45,6 +45,11 @@
         </script>
       <script>
           function DownLoad() {
+              var sql = "select URLCode as Code,IP as 浏览者IP,country as 浏览者国家,city as 浏览者城市, [district] as 浏览者市区,os as 浏览者系统,viewdate as 浏览时间 from ViewHistory ";
+              var url = "/Admin/OutExcelDown.ashx?filename=扫码用户.xls&sql=" + sql;
+              alert(sql);
+              window.open(url);
+              return;
               var content = $("#content").html();
               var data = { body: content };
               $.ajax({
