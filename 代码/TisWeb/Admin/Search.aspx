@@ -23,7 +23,7 @@
 
 
                 code = Request["key"];
-                totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory where UrlCode=@key",
+                totalCount = (int)TisWeb.Models.SqlHelper.ExecuteScalarText("select count(1) from ViewHistory where  province like '%'+@key +'%' OR UrlCode like '%' +@key+'%'",
                              new System.Data.SqlClient.SqlParameter("@key", this.Request["key"]));
                 //var uurl = TisWeb.Models.SqlHelper.ExecuteScalarText("select province from ViewHistory where UrlCode=@key",
                 //             new System.Data.SqlClient.SqlParameter("@key", this.Request["key"]).ToString();
@@ -64,6 +64,12 @@
                window.location.href = "Search.aspx?key=" + k;
            }
            function DownLoad() {
+               var k = $("#key").val();
+               var sql = "select URLCode as Code,IP as 浏览者IP,country as 浏览者国家,city as 浏览者城市, [district] as 浏览者市区,os as 浏览者系统,viewdate as 浏览时间 from ViewHistory  where  province like '%" + k + "%' OR UrlCode like '%" + k + "%'";
+               var url = "/Admin/OutExcelDown.ashx?filename=扫码用户.xls&sql=" + sql;
+               alert(sql);
+               window.open(url);
+               return;
                var content = $("#content").html();
                var data = { body: content };
                $.ajax({
@@ -82,10 +88,10 @@
 
            }
     </script>
-
+    
 
     <div>
-    <label>使用城市查或者code</label><input name="key" type="text"  id="key"  placeholder="城市或者code查询"/>
+    <label>使用城市查或者code</label><input name="key" type="text"  id="key"  placeholder="城市或者code查询" value="<%=Request["key"] %>" />
         <%--<asp:TextBox ID="key" runat="server" ></asp:TextBox>--%>
     <input type="submit" onclick="dosearch();"  value="搜索"class="alt_btn"/>
       <%--  onclick="dosearch();"--%>

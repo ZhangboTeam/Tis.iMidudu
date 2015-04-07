@@ -69,6 +69,7 @@
     <Content Include="packages.config" />
     <Content Include="Admin\SiteAdmin.Master" />
     <Content Include="Admin\OutExcel.ashx" />
+    <Content Include="Admin\OutExcelDown.ashx" />
     <None Include="Properties\PublishProfiles\tis server.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -148,6 +149,9 @@
     </Compile>
     <Compile Include="Admin\CodeSearch.aspx.designer.cs">
       <DependentUpon>CodeSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\OutExcelDown.ashx.cs">
+      <DependentUpon>OutExcelDown.ashx</DependentUpon>
     </Compile>
     <Compile Include="Admin\OutExcel.ashx.cs">
       <DependentUpon>OutExcel.ashx</DependentUpon>
