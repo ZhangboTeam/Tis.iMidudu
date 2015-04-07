@@ -37,7 +37,7 @@
         var cn = new System.Data.SqlClient.SqlConnection(System.Web.Configuration.WebConfigurationManager.AppSettings["con"]);
         cmd.Connection = cn;
         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-        cmd.CommandText = "StoredProcedure7";
+        cmd.CommandText = "TimeSearch_Procedure";
         cmd.Parameters.AddRange(new System.Data.SqlClient.SqlParameter[] {
            new System.Data.SqlClient.SqlParameter("@startIndex", AspNetPager1.StartRecordIndex),
            new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex),
@@ -122,10 +122,10 @@
         }
         
         function DownLoad() {
-         var key1 = $("#key1").val();
-         var key2 = $("#key2").val();
+            var key1 = $("#key1").val();
+            var key2 = $("#key2").val();
          alert(key1);
-         var sql = "select URLCode as Code,IP as 浏览者IP,country as 浏览者国家,city as 浏览者城市, [district] as 浏览者市区,os as 浏览者系统,viewdate as 浏览时间 from ViewHistory  where  ViewDate>='2015-04-01' and ViewDate<='2015-04-02'";
+         var sql = "select URLCode as Code,IP as 浏览者IP,country as 浏览者国家,city as 浏览者城市, [district] as 浏览者市区,os as 浏览者系统,viewdate as 浏览时间 from ViewHistory  where  ViewDate>='key1' and ViewDate<='key2'";
          var url = "/Admin/OutExcelDown.ashx?filename=扫码用户.xls&sql=" + sql;
          //alert(sql);
          window.open(url);
@@ -151,8 +151,8 @@
     </script>
      
         <div class="quick_search ">
-            <input type="text" id="key1" value="<%=DateTime.Today.AddDays(-7).ToString("yyyy-MM-dd") %><%=Request["key1"]  %>" style="width:auto;" />
-			<input type="text"id="key2" value="<%=DateTime.Today.ToString("yyyy-MM-dd") %><%=Request["key2"]  %>"  style="width:auto;"/>
+            <input type="text" id="key1" value="<%=DateTime.Today.AddDays(-7).ToString("yyyy-MM-dd") %>" style="width:auto;" />
+			<input type="text"id="key2" value="<%=DateTime.Today.ToString("yyyy-MM-dd") %>"  style="width:auto;"/>
                 <input type="submit" value="搜索" onclick="dosearch();" class="alt_btn"/>
 		</div> 
     <article class="module width_full">

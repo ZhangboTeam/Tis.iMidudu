@@ -35,7 +35,7 @@
                 //Countcity = TisWeb.Models.SqlHelper.ExecuteScalarText("select province,count(province) from ViewHistory where UrlCode=@key group by province ",
                 //               new System.Data.SqlClient.SqlParameter("@key", this.Request["key"])).ToString();
                 //Countcitymax = TisWeb.Models.SqlHelper.ExecuteScalarText("select province,count(*) as provincesum from ViewHistory group by province ");
-                var dr = TisWeb.Models.SqlHelper.ExecuteReaderFromStoredProcedure("StoredProcedure3",
+                var dr = TisWeb.Models.SqlHelper.ExecuteReaderFromStoredProcedure("Search_Procedure",
                    new System.Data.SqlClient.SqlParameter("@startIndex", AspNetPager1.StartRecordIndex),
                    new System.Data.SqlClient.SqlParameter("@endIndex", AspNetPager1.EndRecordIndex),
                    new System.Data.SqlClient.SqlParameter("@key", this.Request["key"])
